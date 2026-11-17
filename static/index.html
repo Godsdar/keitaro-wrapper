@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Keitaro wrapper</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Keitaro wrapper</div>
+    <nav class="tabs" role="tablist">
+      <button class="tab" role="tab" data-tab="create" aria-selected="true">New campaign</button>
+      <button class="tab" role="tab" data-tab="editor" aria-selected="false">Campaign editor</button>
+    </nav>
+    <div class="textsize" aria-label="Text size">
+      <button id="font-down" title="Smaller text">A−</button>
+      <button id="font-up" title="Larger text">A+</button>
+    </div>
+  </header>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <main>
+    <!-- Создаватор -->
+    <section id="tab-create" class="panel">
+      <h1>New campaign</h1>
+      <form id="create-form" class="card form" autocomplete="off">
+        <label for="name">Name</label>
+        <div class="prefixed">
+          <span class="prefix" id="prefix">test_…_</span>
+          <input id="name" name="name" required placeholder="campaign1">
+        </div>
+
+        <label for="geo">Geo</label>
+        <div>
+          <input id="geo" name="geo" required placeholder="AU  or  MX,AU,RO">
+          <div class="hint" id="geo-hint">Two-letter country codes, comma separated</div>
+        </div>
+
+        <label for="offer-search">Offer</label>
+        <div class="offer-picker" id="create-offer"></div>
+
+        <details class="more">
+          <summary>Domain, group, source</summary>
+          <div class="form inner">
+            <label for="domain">Domain</label><select id="domain" required></select>
+            <label for="group">Group</label><select id="group" required></select>
+            <label for="source">Source</label><select id="source" required></select>
+          </div>
+        </details>
+
+        <div></div>
+        <button type="submit" class="primary" id="create-btn">Create</button>
+      </form>
+      <div id="create-result"></div>
+    </section>
+
+    <!-- Редактор -->
+    <section id="tab-editor" class="panel" hidden>
+      <div class="editor">
+        <aside class="card campaigns">
+          <h2>Campaigns</h2>
+          <form id="open-form" class="open-by-id">
+            <input id="open-id" inputmode="numeric" placeholder="Keitaro ID">
+            <button type="submit">Open</button>
+          </form>
+          <label class="check"><input type="checkbox" id="show-all"> show all, not only mine</label>
+          <ul id="campaign-list" class="list"></ul>
+        </aside>
+        <div id="campaign" class="campaign-view">
+          <p class="empty">Pick a campaign on the left or create a new one.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <template id="offer-picker-tpl">
+    <div class="picker">
+      <input class="picker-input" placeholder="Search offer by name or ID" aria-autocomplete="list">
+      <ul class="picker-list" role="listbox" hidden></ul>
+    </div>
+  </template>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
